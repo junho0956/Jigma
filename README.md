@@ -1,5 +1,8 @@
-# Make interface design tool like as Figma
+# Make simple design tools
+- Make simple design tools, similar figma
+- Enable collaboration with others 
 
-## Usage
+### Usage
 - Next.js 14
-- tailwind
+- Tailwind
+- Liveblocks
