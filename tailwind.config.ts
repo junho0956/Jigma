@@ -20,13 +20,14 @@ const config = {
     extend: {
       colors: {
         primary: {
-          black: "#14181F",
+          black: "#2c2c2c",
           green: "#56FFA6",
           grey: {
             100: "#2B303B",
             200: "#202731",
             300: "#C4D3ED",
           },
+          live: "#e0e0e0"
         },
       },
       keyframes: {

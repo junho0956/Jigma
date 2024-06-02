@@ -2,6 +2,8 @@ import React from "react";
 import styles from "./Avatar.module.css";
 import Image from "next/image";
 
+const liveblocksImageMaxLength = 30;
+
 export function Avatar({ name, otherStyles }: { name: string, otherStyles: string }) {
   return (
     <div
@@ -9,7 +11,7 @@ export function Avatar({ name, otherStyles }: { name: string, otherStyles: strin
       data-tooltip={name}
     >
       <Image
-        src={`https://liveblocks.io/avatars/avatar-${Math.floor(Math.random() * 30)}.png`}
+        src={`https://liveblocks.io/avatars/avatar-${Math.floor(Math.random() * liveblocksImageMaxLength)}.png`}
         fill
         className={styles.avatar_picture}
         alt={name}
