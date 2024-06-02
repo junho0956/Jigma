@@ -11,7 +11,7 @@ const client = createClient({
     //
     // return usersData.map((userData) => ({
     //   name: userData.name,
-    //   avatar: userData.avatar.src,
+    //   users: userData.users.src,
     // }));
     
     return [];
@@ -64,7 +64,7 @@ type Storage = {
 
 // Optionally, UserMeta represents static/readonly metadata on each user, as
 // provided by your own custom auth back end (if used). Useful for data that
-// will not change during a session, like a user's name or avatar.
+// will not change during a session, like a user's name or users.
 type UserMeta = {
   // id?: string,  // Accessible through `user.id`
   // info?: Json,  // Accessible through `user.info`
