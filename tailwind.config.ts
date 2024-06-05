@@ -27,7 +27,8 @@ const config = {
             200: "#202731",
             300: "#C4D3ED",
           },
-          live: "#e0e0e0"
+          // live: "#e0e0e0"
+          live: "#000"
         },
       },
       keyframes: {

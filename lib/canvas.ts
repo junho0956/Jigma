@@ -41,9 +41,9 @@ export const initializeFabric = ({
 export const handleCanvasMouseDown = ({
   options,
   canvas,
-  selectedShapeRef,
   isDrawing,
   shapeRef,
+  selectedShapeRef,
 }: CanvasMouseDown) => {
   // get pointer coordinates
   const pointer = canvas.getPointer(options.e);
@@ -385,7 +385,6 @@ export const renderCanvas = ({
 export const handleResize = ({ canvas }: { canvas: fabric.Canvas | null }) => {
   const canvasElement = document.getElementById("canvas");
   if (!canvasElement) return;
-
   if (!canvas) return;
 
   canvas.setDimensions({

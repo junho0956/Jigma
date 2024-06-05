@@ -127,9 +127,9 @@ export type LiveCursorProps = {
 export type CanvasMouseDown = {
   options: fabric.IEvent;
   canvas: fabric.Canvas;
-  selectedShapeRef: any;
   isDrawing: React.MutableRefObject<boolean>;
   shapeRef: React.MutableRefObject<fabric.Object | null>;
+  selectedShapeRef: any;
 };
 
 export type CanvasMouseMove = {

@@ -7,7 +7,11 @@ import ReactionSelector from "@/components/reaction/ReactionButton";
 import FlyingReaction from "@/components/reaction/FlyingReaction";
 import useInterval from "@/hooks/useInterval";
 
-const Live = () => {
+type Props = {
+  canvasRef: React.MutableRefObject<HTMLCanvasElement|null>;
+}
+
+const Live = ({ canvasRef }:Props) => {
   const others = useOthers();
   const [{cursor}, updateMyPresence] = useMyPresence() as any;
   const [cursorState, setCursorState] = useState<CursorState>({
@@ -19,8 +23,8 @@ const Live = () => {
   useInterval(() => {
     setReaction((reaction) => reaction.filter(r => r.timestamp > Date.now() - 4000));
   }, 1000);
-  
-  const intervalTime = useMemo(() => 1000, []);
+
+  const intervalTime = useMemo(() => 100, []);
   useInterval(() => {
     if (cursorState.mode === CursorMode.Reaction && cursorState.isPressed && cursor) {
       setReaction((reactions) => reactions.concat({
@@ -48,10 +52,11 @@ const Live = () => {
   
   const handlePointerMove = useCallback((e:React.PointerEvent) => {
     e.preventDefault();
-    
     if (cursor == null || cursorState.mode !== CursorMode.ReactionSelector) {
-      const x = e.clientX - e.currentTarget.getBoundingClientRect().x;
-      const y = e.clientY - e.currentTarget.getBoundingClientRect().y;
+      // const x = e.clientX - e.currentTarget.getBoundingClientRect().x;
+      // const y = e.clientY - e.currentTarget.getBoundingClientRect().y;
+      const x = e.clientX;
+      const y = e.clientY;
       updateMyPresence({cursor: {x, y}})
     }
     
@@ -59,8 +64,10 @@ const Live = () => {
   
   const handlePointerDown = useCallback((e:React.PointerEvent) => {
     e.preventDefault();
-    const x = e.clientX - e.currentTarget.getBoundingClientRect().x;
-    const y = e.clientY - e.currentTarget.getBoundingClientRect().y;
+    // const x = e.clientX - e.currentTarget.getBoundingClientRect().x;
+    // const y = e.clientY - e.currentTarget.getBoundingClientRect().y;
+    const x = e.clientX;
+    const y = e.clientY;
     updateMyPresence({cursor: {x, y}});
     
     setCursorState((state:CursorState) => cursorState.mode === CursorMode.Reaction ? {...state, isPressed:true} : state);
@@ -113,15 +120,18 @@ const Live = () => {
       isPressed: false
     })
   }, []);
-  
+
   return (
     <div
+      className="relative h-full w-full flex justify-center items-center text-center border-5 border-green-500"
+      id="canvas"
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
       onPointerUp={handlePointerUp}
       onPointerDown={handlePointerDown}
-      className="h-[100vh] w-full flex justify-center items-center text-center border-5 border-green-500"
     >
+      <canvas ref={canvasRef} />
+
       {reaction.map((r) => (
         <FlyingReaction
           key={r.timestamp.toString()}
