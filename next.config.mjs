@@ -6,6 +6,11 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'liveblocks.io',
         port: ''
+      },
+      {
+        protocol: 'https',
+        hostname: 'api.multiavatar.com',
+        port: ''
       }
     ]
   }

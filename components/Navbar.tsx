@@ -23,7 +23,7 @@ const Navbar = ({
     (Array.isArray(value) && value.some((val) => val?.value === activeElement?.value));
 
   return (
-    <nav className="flex select-none items-center justify-between gap-4 bg-primary-black px-5 text-white">
+    <nav className="flex select-none items-center justify-between gap-4 bg-primary-black px-5">
       <div className="text-white text-2xl">Jigma</div>
 
       <ul className="flex flex-row">

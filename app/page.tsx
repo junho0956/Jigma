@@ -5,15 +5,35 @@ import Navbar from "@/components/Navbar";
 import LeftSideBar from "@/components/LeftSideBar";
 import RightSideBar from "@/components/RightSideBar";
 import {useEffect, useRef, useState} from "react";
-import {handleCanvasMouseDown, handleResize, initializeFabric} from "@/lib/canvas";
+import {
+  handleCanvasMouseMove,
+  handleCanvasMouseDown,
+  handleResize,
+  initializeFabric,
+  handleCanvasMouseUp
+} from "@/lib/canvas";
 import {ActiveElement} from "@/types/type";
+import {useMutation, useStorage} from "@/liveblocks.config";
+import {LiveMap} from "@liveblocks/client";
 
 export default function Page() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fabricRef = useRef<fabric.Canvas | null>(null);
   const isDrawing = useRef(false);
   const shapeRef = useRef<fabric.Object | null>(null);
-  const selectedShapeRef = useRef<string | null>('rectangle');
+  const activeObjectRef = useRef<fabric.Object | null>(null);
+  const selectedShapeRef = useRef<string | null>(null);
+
+  const storage = useStorage((root) => root);
+  console.log(storage)
+  // const syncShapeInStorage = useMutation(({storage}, object) => {
+  //   if (!object) return;
+  //   const { objectId } = object;
+  //   const shapeData = object.toJSON();
+  //   shapeData.objectId = objectId;
+  //   const canvasObjects = storage.get('canvasObjects');
+  //   canvasObjects.set(objectId, shapeData);
+  // }, [canvasObjects]);
 
   const [activeElement, setActiveElement] = useState<ActiveElement>({
     name: '',
@@ -33,7 +53,6 @@ export default function Page() {
     });
 
     canvas.on("mouse:down", (options) => {
-      console.log('??')
       handleCanvasMouseDown({
         options,
         canvas,
@@ -43,12 +62,35 @@ export default function Page() {
       });
     });
 
+    // canvas.on("mouse:move", (options) => {
+    //   handleCanvasMouseMove({
+    //     options,
+    //     canvas,
+    //     selectedShapeRef,
+    //     isDrawing,
+    //     shapeRef,
+    //     syncShapeInStorage
+    //   })
+    // })
+    //
+    // canvas.on("mouse:up", (options) => {
+    //   handleCanvasMouseUp({
+    //     canvas,
+    //     selectedShapeRef,
+    //     isDrawing,
+    //     shapeRef,
+    //     syncShapeInStorage,
+    //     activeObjectRef,
+    //     setActiveElement
+    //   })
+    // })
+
     const eHandleResize = () => handleResize({ canvas: fabricRef.current });
     window.addEventListener('resize', eHandleResize);
     return () => {
       window.removeEventListener('resize', eHandleResize);
     }
-  }, [canvasRef]);
+  }, [canvasRef.current]);
 
   return (
     <main className="h-screen overflow-hidden">

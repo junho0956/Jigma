@@ -27,7 +27,7 @@ const CursorChat = ({ cursor, cursorState, setCursorState, updateMyPresence }:Cu
       })
     }
   }
-  
+
   return (
     <div
       className="absolute top-0 left-0"

@@ -13,7 +13,7 @@ type Props = {
 
 const Live = ({ canvasRef }:Props) => {
   const others = useOthers();
-  const [{cursor}, updateMyPresence] = useMyPresence() as any;
+  const [{ cursor }, updateMyPresence] = useMyPresence() as any;
   const [cursorState, setCursorState] = useState<CursorState>({
     mode: CursorMode.Hidden
   });
@@ -53,21 +53,17 @@ const Live = ({ canvasRef }:Props) => {
   const handlePointerMove = useCallback((e:React.PointerEvent) => {
     e.preventDefault();
     if (cursor == null || cursorState.mode !== CursorMode.ReactionSelector) {
-      // const x = e.clientX - e.currentTarget.getBoundingClientRect().x;
-      // const y = e.clientY - e.currentTarget.getBoundingClientRect().y;
-      const x = e.clientX;
-      const y = e.clientY;
+      const x = e.clientX - e.currentTarget.getBoundingClientRect().x;
+      const y = e.clientY - e.currentTarget.getBoundingClientRect().y;
       updateMyPresence({cursor: {x, y}})
     }
-    
   }, []);
   
   const handlePointerDown = useCallback((e:React.PointerEvent) => {
-    e.preventDefault();
-    // const x = e.clientX - e.currentTarget.getBoundingClientRect().x;
-    // const y = e.clientY - e.currentTarget.getBoundingClientRect().y;
-    const x = e.clientX;
-    const y = e.clientY;
+    e.stopPropagation();
+    // e.preventDefault();
+    const x = e.clientX - e.currentTarget.getBoundingClientRect().x;
+    const y = e.clientY - e.currentTarget.getBoundingClientRect().y;
     updateMyPresence({cursor: {x, y}});
     
     setCursorState((state:CursorState) => cursorState.mode === CursorMode.Reaction ? {...state, isPressed:true} : state);
@@ -123,8 +119,8 @@ const Live = ({ canvasRef }:Props) => {
 
   return (
     <div
-      className="relative h-full w-full flex justify-center items-center text-center border-5 border-green-500"
       id="canvas"
+      className="h-full w-full flex justify-center items-center text-center border-5 border-green-500"
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
       onPointerUp={handlePointerUp}

@@ -11,7 +11,8 @@ export function Avatar({ name, otherStyles }: { name: string, otherStyles: strin
       data-tooltip={name}
     >
       <Image
-        src={`https://liveblocks.io/avatars/avatar-${Math.floor(Math.random() * liveblocksImageMaxLength)}.png`}
+        // src={`https://liveblocks.io/avatars/avatar-${Math.floor(Math.random() * liveblocksImageMaxLength)}.png`}
+        src={`https://api.multiavatar.com/${Math.floor(Math.random() * liveblocksImageMaxLength)}.png`}
         fill
         className={styles.avatar_picture}
         alt={name}

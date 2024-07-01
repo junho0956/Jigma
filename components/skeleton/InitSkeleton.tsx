@@ -17,7 +17,7 @@ const InitSkeleton = () => {
         <RightSideBarSkeleton />
       </section>
       
-      <div className="h-screen absolute inset-0 bg-opacity-30 bg-primary-black z-10" />
+      <div className="h-screen absolute inset-0 bg-opacity-20 bg-primary-black z-10" />
     </div>
   );
 };

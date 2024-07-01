@@ -67,14 +67,11 @@ export const handleCanvasMouseDown = ({
     return;
   }
 
-  canvas.isDrawingMode = false;
-
   // if target is the selected shape or active selection, set isDrawing to false
-  if (
-    target &&
-    (target.type === selectedShapeRef.current ||
-      target.type === "activeSelection")
-  ) {
+  if (target && (
+      target.type === selectedShapeRef.current ||
+      target.type === "activeSelection"
+  )) {
     isDrawing.current = false;
 
     // set active object to target
@@ -103,7 +100,7 @@ export const handleCanvasMouseDown = ({
 };
 
 // handle mouse move event on canvas to draw shapes with different dimensions
-export const handleCanvaseMouseMove = ({
+export const handleCanvasMouseMove = ({
   options,
   canvas,
   isDrawing,
